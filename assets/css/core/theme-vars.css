@@ -1,0 +1,52 @@
+:root {
+    --gap: 24px;
+    --content-gap: 20px;
+    --nav-width: 1180px;
+    --list-width: 960px;
+    --main-width: 900px;
+    --header-height: 64px;
+    --footer-height: 60px;
+    --radius: 8px;
+    --theme: rgb(255, 255, 255);
+    --entry: rgb(255, 255, 255);
+    --primary: rgb(28, 28, 30);
+    --secondary: rgb(100, 105, 112);
+    --tertiary: rgb(204, 208, 214);
+    --content: rgb(43, 45, 49);
+    --link: rgb(47, 91, 153);
+    --inline-code: rgb(65, 67, 72);
+    --code-block-bg: rgb(28, 31, 37);
+    --code-block-border: rgb(41, 45, 52);
+    --code-bg: rgb(246, 247, 248);
+    --border: rgb(231, 233, 236);
+    --table-stripe: rgb(251, 251, 252);
+    --blockquote-bg: rgb(248, 249, 250);
+    --blockquote-border: rgb(194, 198, 204);
+    --blockquote-text: rgb(68, 71, 76);
+    color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+    --theme: rgb(28, 29, 31);
+    --entry: rgb(28, 29, 31);
+    --primary: rgb(229, 230, 232);
+    --secondary: rgb(157, 160, 166);
+    --tertiary: rgb(79, 82, 88);
+    --content: rgb(205, 207, 211);
+    --link: rgb(137, 180, 232);
+    --inline-code: rgb(218, 219, 222);
+    --code-block-bg: rgb(21, 23, 27);
+    --code-block-border: rgb(55, 58, 64);
+    --code-bg: rgb(42, 44, 48);
+    --border: rgb(55, 57, 62);
+    --table-stripe: rgb(32, 33, 36);
+    --blockquote-bg: rgb(35, 37, 41);
+    --blockquote-border: rgb(83, 87, 94);
+    --blockquote-text: rgb(197, 199, 203);
+    color-scheme: dark;
+}
+
+.list,
+[data-theme="dark"] .list {
+    background: var(--theme);
+}
