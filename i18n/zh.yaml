@@ -1,0 +1,51 @@
+- id: prev_page
+  translation: "上一页"
+
+- id: next_page
+  translation: "下一页"
+
+- id: read_time
+  translation:
+    one : "1 分钟"
+    other: "{{ .Count }} 分钟"
+
+- id: words
+  translation: 
+    one: "字"
+    other: "{{ .Count }} 字"
+
+- id: toc
+  translation: "目录"
+
+- id: translations
+  translation: "语言"
+
+- id: home
+  translation: "首页"
+
+- id: edit_post
+  translation: "编辑"
+
+- id: code_copy
+  translation: "复制"
+
+- id: code_copied
+  translation: "已复制！"
+
+- id: tags
+  translation: "标签"
+
+- id: search
+  translation: "搜索"
+
+- id: archives
+  translation: "归档"
+
+- id: latest_posts
+  translation: "最新文章"
+
+- id: previous_post
+  translation: "上一篇文章"
+
+- id: next_post
+  translation: "下一篇文章"
