@@ -1,0 +1,16 @@
+name = "Hugo-Plain"
+license = "MIT"
+licenselink = "https://github.com/adityatelange/hugo-PaperMod/blob/master/LICENSE"
+description = "A minimal, reading-first Hugo knowledge base theme derived from PaperMod"
+tags = ["responsive", "blog", "knowledge-base", "clean", "minimal", "light", "dark", "search", "seo", "rss"]
+features = ["responsive", "knowledge-base", "table-of-contents", "search", "archive", "theme-toggle", "rss", "reading-time", "code-copy", "math", "chronological-post-navigation"]
+min_version = "0.146.0"
+
+[author]
+  name = "Hugo-Plain"
+
+[original]
+  name = "PaperMod"
+  author = "Aditya Telange"
+  homepage = "https://github.com/adityatelange/hugo-PaperMod/"
+  repo = "https://github.com/adityatelange/hugo-PaperMod"
