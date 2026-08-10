@@ -1,0 +1,15 @@
+{{- $headers := findRE "(?s)<h[1-6][^>]*>.*?</h[1-6]>" .Content -}}
+{{- if ge (len $headers) 1 -}}
+<details class="toc toc-drawer" {{ if (.Param "TocOpen") }}open{{ end }}>
+    <summary accesskey="c" title="{{ i18n "toc" | default "Table of Contents" }} (Alt + C)" aria-label="{{ i18n "toc" | default "Table of Contents" }}">
+        <svg class="toc-menu-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <span class="toc-summary-text">{{ i18n "toc" | default "Table of Contents" }}</span>
+    </summary>
+    <div class="toc-panel">
+        <div class="toc-panel-title">{{ i18n "toc" | default "Table of Contents" }}</div>
+        <div class="inner">
+            {{- .TableOfContents -}}
+        </div>
+    </div>
+</details>
+{{- end }}

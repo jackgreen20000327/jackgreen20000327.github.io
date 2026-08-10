@@ -1,0 +1,101 @@
+<header class="header">
+    <nav class="header-nav" aria-label="Primary navigation">
+        <div class="nav-cluster nav-primary">
+            <div class="logo">
+                {{- $labelText := site.Params.label.text | default site.Title -}}
+                {{- if site.Title }}
+                <a href="{{ "" | absLangURL }}" accesskey="h" title="{{ $labelText }} (Alt + H)" aria-label="{{ $labelText }}">
+                    {{- if site.Params.label.icon }}
+                    {{- $img := resources.Get site.Params.label.icon -}}
+                    {{- if $img }}
+                        {{- $processableFormats := slice "jpg" "jpeg" "png" "tif" "bmp" "gif" -}}
+                        {{- if hugo.IsExtended }}
+                            {{- $processableFormats = $processableFormats | append "webp" -}}
+                        {{- end }}
+                        {{- $prod := hugo.IsProduction | or (eq site.Params.env "production") -}}
+                        {{- if and (in $processableFormats $img.MediaType.SubType) $prod }}
+                            {{- if site.Params.label.iconHeight }}
+                                {{- $img = $img.Resize (printf "x%d" site.Params.label.iconHeight) -}}
+                            {{- else }}
+                                {{- $img = $img.Resize "x28" -}}
+                            {{- end }}
+                        {{- end }}
+                        <img src="{{ $img.RelPermalink }}" alt="" height="{{ site.Params.label.iconHeight | default "28" }}">
+                    {{- else }}
+                        <img src="{{ site.Params.label.icon | absURL }}" alt="" height="{{ site.Params.label.iconHeight | default "28" }}">
+                    {{- end }}
+                    {{- else if hasPrefix site.Params.label.iconSVG "<svg" }}
+                        {{- site.Params.label.iconSVG | safeHTML -}}
+                    {{- end }}
+                    <span class="site-title">{{ $labelText }}</span>
+                </a>
+                {{- end }}
+            </div>
+
+            <ul class="menu menu-core" aria-label="Knowledge base navigation">
+                <li>
+                    <a href="{{ "" | absLangURL }}" title="{{ i18n "home" | default "Home" }}">
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 3l9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>
+                        <span>{{ i18n "home" | default "Home" }}</span>
+                    </a>
+                </li>
+                {{- $tagsPath := site.Params.plain.tagsPath | default "tags" -}}
+                <li>
+                    <a href="{{ printf "%s/" $tagsPath | absLangURL }}" title="{{ i18n "tags" | default "Tags" }}">
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 11 3.83V3H4v7h.83l9.58 9.59a2 2 0 0 0 2.82 0l3.36-3.36a2 2 0 0 0 0-2.82Z"/><circle cx="7.5" cy="6.5" r="1"/></svg>
+                        <span>{{ i18n "tags" | default "Tags" }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="nav-cluster nav-actions">
+            {{- $searchPath := site.Params.plain.searchPath | default "search" -}}
+            <a class="nav-action" href="{{ printf "%s/" $searchPath | absLangURL }}" accesskey="/" title="{{ i18n "search" | default "Search" }} (Alt + /)" aria-label="{{ i18n "search" | default "Search" }}">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                <span class="nav-label">{{ i18n "search" | default "Search" }}</span>
+            </a>
+
+            {{- $archivesPath := site.Params.plain.archivesPath | default "archives" -}}
+            <a class="nav-action" href="{{ printf "%s/" $archivesPath | absLangURL }}" title="{{ i18n "archives" | default "Archives" }}" aria-label="{{ i18n "archives" | default "Archives" }}">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v13H4z"/><path d="M3 4h18v3H3z"/><path d="M9 11h6"/></svg>
+                <span class="nav-label">{{ i18n "archives" | default "Archives" }}</span>
+            </a>
+
+            {{- with site.Home.OutputFormats.Get "rss" }}
+            <a class="nav-action" href="{{ .RelPermalink }}" title="RSS" aria-label="RSS">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11a8 8 0 0 1 8 8"/><path d="M5 5a14 14 0 0 1 14 14"/><circle cx="5" cy="19" r="1"/></svg>
+                <span class="nav-label">RSS</span>
+            </a>
+            {{- end }}
+
+            {{- if and (not site.Params.disableLangToggle) (hugo.IsMultilingual) -}}
+                {{- $lang := .Lang -}}
+                {{- with site.Home.Translations -}}
+                <ul class="lang-menu" aria-label="Language">
+                    {{- range . -}}
+                    {{- if ne $lang .Lang }}
+                    <li>
+                        <a href="{{ .Permalink }}" title="{{ .Language.LanguageName | default (.Lang | title) }}">
+                            {{- if and site.Params.displayFullLangName .Language.LanguageName -}}
+                                {{- .Language.LanguageName | emojify -}}
+                            {{- else -}}
+                                {{- .Lang | upper -}}
+                            {{- end -}}
+                        </a>
+                    </li>
+                    {{- end -}}
+                    {{- end -}}
+                </ul>
+                {{- end -}}
+            {{- end }}
+
+            {{- if not site.Params.disableThemeToggle }}
+            <button id="theme-toggle" class="theme-toggle" accesskey="t" title="Toggle theme (Alt + T)" aria-label="Toggle theme">
+                <svg class="moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg class="sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            </button>
+            {{- end }}
+        </div>
+    </nav>
+</header>

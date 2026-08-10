@@ -1,0 +1,27 @@
+{{- $tags := .Language.Params.Taxonomies.tag | default "tags" -}}
+{{- $terms := .GetTerms $tags -}}
+{{- $hasDate := not .Date.IsZero -}}
+
+{{- if $hasDate -}}
+<time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format (site.Params.plain.listDateFormat | default "2006-01-02") }}</time>
+{{- end -}}
+
+{{- if $terms -}}
+    {{- if $hasDate }}<span class="meta-separator">·</span>{{ end -}}
+    <span class="post-meta-tags">
+    {{- range $index, $term := $terms -}}
+        {{- if $index }} <span aria-hidden="true">/</span> {{ end -}}
+        <a href="{{ $term.Permalink }}">{{ $term.LinkTitle }}</a>
+    {{- end -}}
+    </span>
+{{- end -}}
+
+{{- if (.Param "ShowReadingTime") -}}
+    {{- if or $hasDate $terms }}<span class="meta-separator">·</span>{{ end -}}
+    <span>{{ i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime) }}</span>
+{{- end -}}
+
+{{- if (.Param "ShowWordCount") -}}
+    {{- if or $hasDate $terms (.Param "ShowReadingTime") }}<span class="meta-separator">·</span>{{ end -}}
+    <span>{{ i18n "words" .WordCount | default (printf "%d words" .WordCount) }}</span>
+{{- end -}}
