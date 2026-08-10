@@ -1,0 +1,346 @@
+.md-content {
+    font-size: 18px;
+    line-height: 1.86;
+    letter-spacing: 0.002em;
+}
+
+.md-content h1,
+.md-content h2,
+.md-content h3,
+.md-content h4,
+.md-content h5,
+.md-content h6 {
+    color: var(--primary);
+    letter-spacing: -0.018em;
+    scroll-margin-top: calc(var(--header-height) + 24px);
+}
+
+.md-content h1 {
+    margin: 54px 0 26px;
+    font-size: 36px;
+}
+
+.md-content h2 {
+    margin: 50px 0 22px;
+    font-size: 29px;
+}
+
+.md-content h3 {
+    margin: 40px 0 18px;
+    font-size: 23px;
+}
+
+.md-content h4 {
+    margin: 32px 0 16px;
+    font-size: 19px;
+}
+
+.md-content h5 {
+    margin: 28px 0 14px;
+    font-size: 17px;
+}
+
+.md-content h6 {
+    margin: 24px 0 12px;
+    color: var(--secondary);
+    font-size: 15px;
+}
+
+.md-content p,
+.md-content ol,
+.md-content ul,
+.md-content dl,
+.md-content figure,
+.md-content table,
+.md-content blockquote,
+.md-content .highlight,
+.md-content pre {
+    margin-top: 0;
+    margin-bottom: 1.45em;
+}
+
+.md-content a:not(.anchor) {
+    color: var(--link);
+    text-underline-offset: 0.22rem;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--link);
+}
+
+.md-content a:not(.anchor):hover {
+    text-decoration-color: currentColor;
+}
+
+.md-content del {
+    text-decoration: line-through;
+}
+
+.md-content ol,
+.md-content ul {
+    padding-inline-start: 1.55rem;
+}
+
+.md-content ol {
+    list-style-position: outside;
+}
+
+.md-content ul {
+    list-style-type: disc;
+}
+
+.md-content li {
+    padding-inline-start: 0.22rem;
+}
+
+.md-content li + li {
+    margin-top: 0.42rem;
+}
+
+.md-content li > p {
+    margin-bottom: 0.7em;
+}
+
+.md-content dl {
+    display: grid;
+    grid-template-columns: minmax(120px, 0.32fr) minmax(0, 1fr);
+    gap: 8px 18px;
+}
+
+.md-content dt {
+    font-weight: 700;
+}
+
+.md-content dd {
+    margin: 0;
+}
+
+.md-content table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.md-content table th,
+.md-content table:not(.highlighttable, .highlight table, .gist .highlight) td {
+    min-width: 92px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+}
+
+.md-content table th {
+    text-align: start;
+    font-weight: 650;
+    background: var(--code-bg);
+}
+
+.md-content table:not(.highlighttable) tr:nth-child(even) td {
+    background: var(--table-stripe);
+}
+
+.md-content table:not(.highlighttable) td code:only-child {
+    margin: auto 0;
+}
+
+.md-content .highlight table {
+    border-radius: var(--radius);
+}
+
+.md-content .highlight:not(table),
+.md-content pre {
+    overflow: hidden;
+    background: var(--code-block-bg) !important;
+    border: 1px solid var(--code-block-border);
+    border-radius: 9px;
+    direction: ltr;
+}
+
+.md-content li > .highlight {
+    margin-inline-end: 0;
+}
+
+.md-content .highlight pre {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+}
+
+.md-content .highlighttable {
+    table-layout: fixed;
+}
+
+.md-content .highlighttable td:first-child {
+    width: 40px;
+}
+
+.md-content .highlighttable td .linenodiv {
+    padding-inline-end: 0 !important;
+}
+
+.md-content .highlighttable td .highlight,
+.md-content .highlighttable td .linenodiv pre {
+    margin-bottom: 0;
+}
+
+.post-content code {
+    padding: 0.18em 0.38em;
+    color: var(--inline-code);
+    font-size: 0.84em;
+    line-height: 1.5;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+
+.md-content pre code {
+    display: block;
+    margin: 0;
+    padding: 20px 22px;
+    color: rgb(225, 225, 226);
+    font-size: 14px;
+    line-height: 1.7;
+    background: transparent !important;
+    border: 0;
+    border-radius: 0;
+    overflow-x: auto;
+    white-space: pre;
+    word-break: normal;
+}
+
+.md-content blockquote {
+    padding: 16px 20px;
+    color: var(--blockquote-text);
+    background: var(--blockquote-bg);
+    border-inline-start: 3px solid var(--blockquote-border);
+    border-radius: 0 7px 7px 0;
+}
+
+.md-content blockquote > :last-child {
+    margin-bottom: 0;
+}
+
+.md-content hr {
+    margin: 44px 0;
+    height: 1px;
+    background: var(--border);
+    border: 0;
+}
+
+.md-content iframe {
+    max-width: 100%;
+}
+
+.md-content img {
+    border-radius: 7px;
+    margin: 2rem auto;
+}
+
+.md-content img[src*="#center"] {
+    margin: 2rem auto;
+}
+
+.md-content figure.align-center {
+    text-align: center;
+}
+
+.md-content figure > figcaption {
+    margin: -1rem 0 1.6rem;
+    color: var(--secondary);
+    font-size: 13px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.md-content figure > figcaption > p {
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.md-content h1:hover .anchor,
+.md-content h2:hover .anchor,
+.md-content h3:hover .anchor,
+.md-content h4:hover .anchor,
+.md-content h5:hover .anchor,
+.md-content h6:hover .anchor {
+    display: inline-flex;
+    color: var(--secondary);
+    margin-inline-start: 0.45em;
+    font-weight: 500;
+    user-select: none;
+}
+
+.anchor:hover {
+    color: var(--content) !important;
+}
+
+.md-content img.in-text {
+    display: inline;
+    margin: auto;
+}
+
+mark {
+    border-radius: 3px;
+    padding: 0 3px;
+}
+
+.katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.35rem 0;
+}
+
+audio {
+    display: block;
+    width: 100%;
+    height: 2.5rem;
+    margin-bottom: var(--content-gap);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+video {
+    max-width: 100%;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+@media screen and (max-width: 720px) {
+    .md-content {
+        font-size: 17px;
+        line-height: 1.8;
+    }
+
+    .md-content h1 { font-size: 31px; }
+    .md-content h2 { font-size: 27px; }
+    .md-content h3 { font-size: 22px; }
+
+    .md-content table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .md-content pre code {
+        padding: 18px;
+        font-size: 13.5px;
+    }
+}
+
+/* Build-time math rendered by Hugo transform.ToMath as native MathML. */
+.md-content .math-inline {
+    display: inline;
+}
+
+.md-content .math-block {
+    margin: 1.6em 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-align: center;
+}
+
+.md-content .math-block math[display="block"] {
+    margin-inline: auto;
+}

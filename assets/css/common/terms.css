@@ -1,0 +1,33 @@
+.terms-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+}
+
+.terms-tags li {
+    display: inline-block;
+    list-style: none;
+}
+
+.terms-tags a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    padding: 7px 11px;
+    color: var(--secondary);
+    font-size: 14px;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+}
+
+.terms-tags a:hover {
+    color: var(--primary);
+    border-color: var(--tertiary);
+}
+
+.terms-tags sup {
+    color: var(--secondary);
+    font-size: 10px;
+}

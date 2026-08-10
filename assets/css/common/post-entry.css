@@ -1,0 +1,148 @@
+.post-list {
+    display: block;
+}
+
+.post-entry,
+.first-entry {
+    position: relative;
+    margin: 0;
+    padding: 28px 0 30px;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    transition: none;
+}
+
+.post-entry:first-child {
+    padding-top: 14px;
+}
+
+.post-entry:hover,
+.post-entry:focus-within,
+.first-entry:hover,
+.first-entry:focus-within {
+    transform: none;
+    border-color: var(--border);
+}
+
+.entry-heading-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 24px;
+}
+
+.entry-header h2 {
+    min-width: 0;
+    font-size: 21px;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+}
+
+.entry-header h2 a {
+    position: relative;
+    z-index: 1;
+}
+
+.entry-header h2 a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+    text-decoration-thickness: 1px;
+}
+
+.entry-date {
+    color: var(--secondary);
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.entry-content {
+    margin: 10px 0 14px;
+    max-width: 780px;
+    color: var(--secondary);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.entry-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    color: var(--secondary);
+    font-size: 13px;
+}
+
+.entry-tags,
+.entry-reading-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.entry-tags svg,
+.entry-reading-time svg {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 auto;
+}
+
+.entry-tags a {
+    position: relative;
+    z-index: 2;
+    color: var(--secondary);
+}
+
+.entry-tags a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 0.22rem;
+}
+
+.tag-separator {
+    color: var(--tertiary);
+}
+
+.entry-hint {
+    color: var(--secondary);
+    margin-inline-start: 8px;
+}
+
+.entry-hint-parent {
+    display: inline-flex;
+    align-items: center;
+}
+
+.entry-cover {
+    display: none;
+}
+
+
+@media screen and (max-width: 620px) {
+    .post-entry,
+    .first-entry {
+        padding: 24px 0;
+    }
+
+    .entry-heading-row {
+        display: block;
+    }
+
+    .entry-header h2 {
+        font-size: 20px;
+    }
+
+    .entry-date {
+        display: block;
+        margin-top: 6px;
+    }
+
+    .entry-content {
+        margin-top: 9px;
+    }
+}
