@@ -1,0 +1,138 @@
+{{- define "main" }}
+
+{{- if .IsHome }}
+<header class="page-header home-page-header">
+  <h1>{{ i18n "latest_posts" | default "Latest posts" }}</h1>
+</header>
+{{- else if .Title }}
+<header class="page-header">
+  {{- partial "breadcrumbs.html" . }}
+  <h1>
+    {{ .Title }}
+    {{- if and (or (eq .Kind `term`) (eq .Kind `section`)) (.Param "ShowRssButtonInSectionTermList") }}
+    {{- with .OutputFormats.Get "rss" }}
+    <a href="{{ .RelPermalink }}" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+    {{- end }}
+    {{- end }}
+  </h1>
+  {{- if .Description }}
+  <div class="post-description">{{ .Description | markdownify }}</div>
+  {{- end }}
+</header>
+{{- end }}
+
+{{- if .Content }}
+<div class="post-content md-content list-content">
+  {{- if not (.Param "disableAnchoredHeadings") }}
+  {{- partial "anchored_headings.html" .Content -}}
+  {{- else }}{{ .Content }}{{ end }}
+</div>
+{{- end }}
+
+{{- $pages := union .RegularPages .Sections -}}
+{{- if .IsHome }}
+  {{- $pages = where site.RegularPages "Type" "in" site.MainSections -}}
+  {{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true" -}}
+{{- end }}
+{{- $pages = $pages.ByDate.Reverse -}}
+{{- $paginator := .Paginate $pages -}}
+
+<section class="post-list" aria-label="{{ if .IsHome }}{{ i18n "latest_posts" | default "Latest posts" }}{{ else }}{{ .Title }}{{ end }}">
+{{- range $paginator.Pages }}
+<article class="post-entry">
+  <header class="entry-header">
+    <div class="entry-heading-row">
+      <h2 class="entry-hint-parent">
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+        {{- if .Draft }}
+        <span class="entry-hint" title="Draft" aria-label="Draft">
+          <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor"><path d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm60-60h38l121-122-37-37-122 121v38Z"/></svg>
+        </span>
+        {{- end }}
+      </h2>
+      {{- if not .Date.IsZero }}
+      <time class="entry-date" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format (site.Params.plain.listDateFormat | default "2006-01-02") }}</time>
+      {{- end }}
+    </div>
+  </header>
+
+  {{- if ne (.Param "hideSummary") true }}
+  <div class="entry-content">
+    <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}…{{ end }}</p>
+  </div>
+  {{- end }}
+
+  {{- if not (.Param "hideMeta") }}
+    {{- $tags := .Language.Params.Taxonomies.tag | default "tags" -}}
+    {{- $terms := .GetTerms $tags -}}
+    {{- $showReadingTime := .Param "ShowReadingTime" -}}
+    {{- if or $terms $showReadingTime }}
+  <footer class="entry-footer">
+    {{- if $terms }}
+    <span class="entry-tags" aria-label="{{ i18n "tags" | default "Tags" }}">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 11 3.83V3H4v7h.83l9.58 9.59a2 2 0 0 0 2.82 0l3.36-3.36a2 2 0 0 0 0-2.82Z"/><circle cx="7.5" cy="6.5" r="1"/></svg>
+      {{- range $index, $term := $terms -}}
+        {{- if $index }}<span class="tag-separator">/</span>{{ end -}}
+        <a href="{{ $term.Permalink }}">{{ $term.LinkTitle }}</a>
+      {{- end }}
+    </span>
+    {{- end }}
+    {{- if $showReadingTime }}
+    <span class="entry-reading-time">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      {{ i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime) }}
+    </span>
+    {{- end }}
+  </footer>
+    {{- end }}
+  {{- end }}
+</article>
+{{- end }}
+</section>
+
+{{- if gt $paginator.TotalPages 1 }}
+<footer class="page-footer">
+  <nav class="pagination" aria-label="Pagination">
+    <div class="pagination-edge pagination-prev">
+      {{- if $paginator.HasPrev }}
+      <a href="{{ $paginator.Prev.URL }}" rel="prev">‹ <span>{{ i18n "prev_page" | default "Previous" }}</span></a>
+      {{- end }}
+    </div>
+
+    <div class="pagination-pages">
+      {{- $current := $paginator.PageNumber -}}
+      {{- $total := $paginator.TotalPages -}}
+      {{- $scratch := newScratch -}}
+      {{- $scratch.Set "lastShown" 0 -}}
+      {{- range $pager := $paginator.Pagers -}}
+        {{- $n := $pager.PageNumber -}}
+        {{- $show := or (eq $n 1) (eq $n $total) (and (ge $n (sub $current 2)) (le $n (add $current 2))) -}}
+        {{- if $show -}}
+          {{- $lastShown := $scratch.Get "lastShown" -}}
+          {{- if and (gt $lastShown 0) (gt (sub $n $lastShown) 1) }}<span class="pagination-ellipsis" aria-hidden="true">…</span>{{ end -}}
+          {{- if eq $n $current }}
+          <span class="pagination-current" aria-current="page">{{ $n }}</span>
+          {{- else }}
+          <a class="pagination-number" href="{{ $pager.URL }}">{{ $n }}</a>
+          {{- end -}}
+          {{- $scratch.Set "lastShown" $n -}}
+        {{- end -}}
+      {{- end -}}
+    </div>
+
+    <div class="pagination-edge pagination-next">
+      {{- if $paginator.HasNext }}
+      <a href="{{ $paginator.Next.URL }}" rel="next"><span>{{ i18n "next_page" | default "Next" }}</span> ›</a>
+      {{- end }}
+    </div>
+  </nav>
+</footer>
+{{- end }}
+
+{{- end }}

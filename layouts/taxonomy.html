@@ -1,0 +1,22 @@
+{{- define "main" }}
+
+<header class="page-header">
+    {{- $tagsPath := site.Params.plain.tagsPath | default "tags" -}}
+    <h1>{{ if eq .Type $tagsPath }}{{ i18n "tags" | default .Title }}{{ else }}{{ .Title }}{{ end }}</h1>
+    {{- if .Description }}
+    <div class="post-description">{{ .Description }}</div>
+    {{- end }}
+</header>
+
+<ul class="terms-tags">
+    {{- $type := .Type -}}
+    {{- range .Data.Terms.Alphabetical -}}
+        {{- $name := .Name -}}
+        {{- $count := .Count -}}
+        {{- with site.GetPage (printf "/%s/%s" $type $name) }}
+        <li><a href="{{ .Permalink }}"><span>{{ .LinkTitle }}</span><sup>{{ $count }}</sup></a></li>
+        {{- end }}
+    {{- end }}
+</ul>
+
+{{- end }}
